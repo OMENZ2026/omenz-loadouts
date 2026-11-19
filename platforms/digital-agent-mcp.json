@@ -1,0 +1,17 @@
+{
+  "id": "digital-agent-mcp",
+  "name": "Digital agent (MCP / x402 tools, no body)",
+  "bridge": "MCP tools/list + x402 routes; permissions via OMENZ Authorize passport",
+  "native": {
+    "speech.say": "text reply",
+    "speech.listen": "text input",
+    "display.show": "rich output",
+    "notify.owner": "message / email tool",
+    "timer.count": "scheduler",
+    "home.music": "smart-home API tool",
+    "home.lights": "smart-home API tool"
+  },
+  "addon": {},
+  "verified_on_hardware": false,
+  "body": false
+}

@@ -1,0 +1,32 @@
+{
+  "id": "omenz-sim-home",
+  "name": "OMENZ sim home (2D, deterministic; for testing loadouts without hardware)",
+  "bridge": "POST /v1/loadout/simulate",
+  "native": {
+    "move.navigate_to": "simulated",
+    "move.follow": "simulated",
+    "move.patrol": "simulated",
+    "sense.detect_objects": "simulated",
+    "sense.detect_people": "simulated",
+    "sense.camera_snapshot": "simulated",
+    "arm.pick": "simulated",
+    "arm.place": "simulated",
+    "arm.handover": "simulated",
+    "arm.carry_tray": "simulated",
+    "speech.say": "simulated",
+    "speech.listen": "simulated",
+    "gesture.wave": "simulated",
+    "gesture.point": "simulated",
+    "gesture.demo_exercise": "simulated",
+    "display.show": "simulated",
+    "home.music": "simulated",
+    "home.lights": "simulated",
+    "notify.owner": "simulated",
+    "timer.count": "simulated",
+    "safety.estop": "simulated",
+    "safety.speed_limit": "simulated",
+    "sense.battery": "simulated"
+  },
+  "addon": {},
+  "verified_on_hardware": false
+}

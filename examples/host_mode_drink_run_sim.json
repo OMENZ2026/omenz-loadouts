@@ -1,0 +1,65 @@
+{
+  "ran": true,
+  "loadout": "host-mode",
+  "workflow": "drink_run",
+  "completed": false,
+  "sim_seconds": 24.0,
+  "trace": [
+    {
+      "step": 0,
+      "cap": "speech.listen",
+      "args": {},
+      "gate": "ALLOW",
+      "reasons": [],
+      "result": "ok (simulated)",
+      "t_s": 2.0
+    },
+    {
+      "step": 1,
+      "cap": "move.navigate_to",
+      "args": {
+        "place": "drink_station"
+      },
+      "gate": "ALLOW",
+      "reasons": [],
+      "result": "at drink_station (6, 2) after 6.3 m",
+      "t_s": 12.5
+    },
+    {
+      "step": 2,
+      "cap": "arm.pick",
+      "args": {
+        "object": "cup"
+      },
+      "gate": "ALLOW",
+      "reasons": [],
+      "result": "holding cup",
+      "t_s": 16.5
+    },
+    {
+      "step": 3,
+      "cap": "move.navigate_to",
+      "args": {
+        "place": "guest"
+      },
+      "gate": "ALLOW",
+      "reasons": [],
+      "result": "at guest (4, 6) after 4.5 m",
+      "t_s": 24.0
+    },
+    {
+      "step": 4,
+      "cap": "arm.handover",
+      "args": {
+        "object": "cup"
+      },
+      "gate": "CONFIRM_FIRST",
+      "reasons": [
+        "arm.handover needs a human yes for this step"
+      ],
+      "result": "stopped: waiting for a human yes (send auto_confirm=true to simulate the yes)"
+    }
+  ],
+  "check_verdict": "READY",
+  "note": "Deterministic 2D sim: shows the plan, the gate on every step and where a human must say yes. Not physics."
+}

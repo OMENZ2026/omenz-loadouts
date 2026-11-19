@@ -1,0 +1,92 @@
+{
+  "schema": "omenz.loadout.v0",
+  "id": "security-patrol-observe",
+  "name": "SECURITY PATROL (observe + report only)",
+  "kind": "embodied",
+  "for": "Walk a route, look, report to the owner. Never confronts, blocks or touches anyone.",
+  "layers": {
+    "skin": {
+      "name": "Night Watch"
+    },
+    "persona": {
+      "tone": "calm"
+    },
+    "job": {
+      "title": "patrol",
+      "goals": [
+        "route walked",
+        "anomalies reported"
+      ]
+    },
+    "tools": [
+      "notify.owner"
+    ],
+    "context": {
+      "jacket_fields": [
+        "route",
+        "normal_hours"
+      ]
+    },
+    "permissions": {
+      "max_speed_mps": 0.6,
+      "max_payload_kg": 1.0,
+      "no_go_zones": [
+        "stairs",
+        "pool edge",
+        "grill"
+      ],
+      "require_human_confirm": [
+        "arm.handover",
+        "move.follow",
+        "sense.camera_snapshot"
+      ],
+      "forbidden": [
+        "sense.recognize_person",
+        "arm.pick",
+        "arm.handover",
+        "move.follow"
+      ],
+      "contact_with_people": "never"
+    },
+    "behaviors": [
+      "patrol_loop"
+    ]
+  },
+  "requires": [
+    "move.patrol",
+    "sense.camera_snapshot",
+    "notify.owner",
+    "safety.estop"
+  ],
+  "optional": [
+    "sense.detect_people",
+    "speech.say"
+  ],
+  "workflows": [
+    {
+      "name": "patrol_loop",
+      "steps": [
+        {
+          "cap": "move.patrol",
+          "args": {
+            "route": "perimeter"
+          }
+        },
+        {
+          "cap": "sense.detect_people",
+          "args": {}
+        },
+        {
+          "cap": "sense.camera_snapshot",
+          "args": {}
+        },
+        {
+          "cap": "notify.owner",
+          "args": {
+            "text": "Patrol done; snapshot attached"
+          }
+        }
+      ]
+    }
+  ]
+}

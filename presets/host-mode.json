@@ -1,0 +1,207 @@
+{
+  "schema": "omenz.loadout.v0",
+  "id": "host-mode",
+  "name": "HOST MODE",
+  "kind": "embodied",
+  "for": "Help host a backyard barbecue: greet guests, take drink requests, bring cups, clear trash, run the music.",
+  "layers": {
+    "skin": {
+      "name": "Backyard Host",
+      "look": {
+        "accent_color": "#0aa0ff",
+        "outfit": "apron, where the hardware allows"
+      }
+    },
+    "persona": {
+      "tone": "relaxed, funny, polite",
+      "boundaries": [
+        "no alcohol to minors",
+        "no personal questions",
+        "never argues"
+      ]
+    },
+    "voice": {
+      "style": "warm, short sentences",
+      "greeting": "Welcome! Grab a plate, I'll bring you a drink."
+    },
+    "job": {
+      "title": "party host",
+      "goals": [
+        "every guest greeted",
+        "drinks requested -> delivered",
+        "trash cleared"
+      ]
+    },
+    "tools": [
+      "home.music",
+      "notify.owner"
+    ],
+    "context": {
+      "jacket_fields": [
+        "menu",
+        "house_rules",
+        "drink_station",
+        "trash_spot",
+        "guest_count"
+      ],
+      "note": "Guest names only if guests agree. Kept in an OMENZ Job Jacket, checked back in after the party."
+    },
+    "permissions": {
+      "max_speed_mps": 0.6,
+      "max_payload_kg": 1.0,
+      "no_go_zones": [
+        "stairs",
+        "pool edge",
+        "grill"
+      ],
+      "require_human_confirm": [
+        "arm.handover",
+        "move.follow",
+        "sense.camera_snapshot"
+      ],
+      "forbidden": [
+        "sense.recognize_person"
+      ],
+      "contact_with_people": "handover only, never touch"
+    },
+    "behaviors": [
+      "greet_at_gate",
+      "drink_run",
+      "trash_sweep",
+      "music_request"
+    ]
+  },
+  "requires": [
+    "move.navigate_to",
+    "speech.say",
+    "speech.listen",
+    "sense.detect_people",
+    "gesture.wave",
+    "safety.estop",
+    "safety.speed_limit"
+  ],
+  "optional": [
+    "arm.pick",
+    "arm.place",
+    "arm.handover",
+    "arm.carry_tray",
+    "sense.detect_objects",
+    "home.music"
+  ],
+  "workflows": [
+    {
+      "name": "greet_at_gate",
+      "steps": [
+        {
+          "cap": "move.navigate_to",
+          "args": {
+            "place": "gate"
+          }
+        },
+        {
+          "cap": "sense.detect_people",
+          "args": {}
+        },
+        {
+          "cap": "gesture.wave",
+          "args": {}
+        },
+        {
+          "cap": "speech.say",
+          "args": {
+            "text": "Welcome!"
+          }
+        }
+      ]
+    },
+    {
+      "name": "drink_run",
+      "steps": [
+        {
+          "cap": "speech.listen",
+          "args": {}
+        },
+        {
+          "cap": "move.navigate_to",
+          "args": {
+            "place": "drink_station"
+          }
+        },
+        {
+          "cap": "arm.pick",
+          "args": {
+            "object": "cup"
+          }
+        },
+        {
+          "cap": "move.navigate_to",
+          "args": {
+            "place": "guest"
+          }
+        },
+        {
+          "cap": "arm.handover",
+          "args": {
+            "object": "cup"
+          }
+        }
+      ]
+    },
+    {
+      "name": "trash_sweep",
+      "steps": [
+        {
+          "cap": "move.navigate_to",
+          "args": {
+            "place": "tables"
+          }
+        },
+        {
+          "cap": "sense.detect_objects",
+          "args": {
+            "object": "trash"
+          }
+        },
+        {
+          "cap": "arm.pick",
+          "args": {
+            "object": "trash"
+          }
+        },
+        {
+          "cap": "move.navigate_to",
+          "args": {
+            "place": "trash_spot"
+          }
+        },
+        {
+          "cap": "arm.place",
+          "args": {
+            "object": "trash"
+          }
+        }
+      ]
+    },
+    {
+      "name": "music_request",
+      "steps": [
+        {
+          "cap": "speech.listen",
+          "args": {}
+        },
+        {
+          "cap": "home.music",
+          "args": {
+            "action": "play"
+          }
+        },
+        {
+          "cap": "speech.say",
+          "args": {
+            "text": "Turning it up."
+          }
+        }
+      ]
+    }
+  ]
+}

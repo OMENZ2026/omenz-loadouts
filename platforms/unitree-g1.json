@@ -1,0 +1,28 @@
+{
+  "id": "unitree-g1",
+  "name": "Unitree G1 humanoid (unitree_sdk2 / UniStore)",
+  "bridge": "unitree_sdk2 (C++) / unitree_sdk2_python over DDS; store apps via UniStore Developer Center",
+  "native": {
+    "move.navigate_to": "LocoClient.Move(vx, vy, vyaw) + your own localization (no built-in named places)",
+    "gesture.wave": "LocoClient.WaveHand() / G1ArmActionClient.ExecuteAction(wave)",
+    "arm.handover": "G1ArmActionClient preset arm actions (handshake-style); not a grasp",
+    "speech.say": "AudioClient.TtsMaker(text)",
+    "sense.camera_snapshot": "head camera stream",
+    "sense.battery": "LowState battery fields",
+    "safety.estop": "Damp() / remote e-stop",
+    "safety.speed_limit": "cap vx/vy in the adapter (no global limit API assumed)"
+  },
+  "addon": {
+    "arm.pick": "dexterous hand + your grasp policy (e.g. a LeRobot/GR00T fine-tune): experimental",
+    "arm.place": "same as arm.pick",
+    "arm.carry_tray": "policy needed; high risk",
+    "sense.detect_objects": "vision model on the camera stream",
+    "sense.detect_people": "vision model",
+    "speech.listen": "mic array + ASR",
+    "move.follow": "people detection + Move()",
+    "move.patrol": "waypoint loop over Move()",
+    "gesture.point": "arm action or low-level arm control",
+    "gesture.demo_exercise": "recorded motion clip (UniStore-style action package)"
+  },
+  "verified_on_hardware": false
+}

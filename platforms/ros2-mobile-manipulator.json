@@ -1,0 +1,28 @@
+{
+  "id": "ros2-mobile-manipulator",
+  "name": "Generic ROS 2 mobile manipulator (via ros-mcp / rosbridge)",
+  "bridge": "rosbridge WebSocket + ros-mcp (MCP server): agent -> MCP -> ROS topics/services/actions",
+  "native": {
+    "move.navigate_to": "nav2 action /navigate_to_pose (nav2_msgs/action/NavigateToPose)",
+    "move.patrol": "nav2 action /follow_waypoints (nav2_msgs/action/FollowWaypoints)",
+    "sense.camera_snapshot": "subscribe sensor_msgs/Image (camera topic)",
+    "sense.battery": "subscribe sensor_msgs/BatteryState",
+    "safety.speed_limit": "nav2 speed_limit topic (nav2_msgs/SpeedLimit)",
+    "safety.estop": "vendor e-stop topic/service (name varies per robot)"
+  },
+  "addon": {
+    "arm.pick": "no standard ROS 2 pick interface: needs the robot's MoveIt pick/place server (name varies)",
+    "arm.place": "same as arm.pick",
+    "arm.carry_tray": "MoveIt constraint planning (orientation lock)",
+    "arm.handover": "custom handover node (rare)",
+    "sense.detect_objects": "vision node (e.g. YOLO -> vision_msgs/Detection2DArray)",
+    "sense.detect_people": "people detection node",
+    "speech.say": "TTS node",
+    "speech.listen": "ASR node",
+    "move.follow": "person-following node",
+    "gesture.point": "arm pose via MoveIt",
+    "gesture.wave": "scripted arm motion via MoveIt",
+    "display.show": "screen node if fitted"
+  },
+  "verified_on_hardware": false
+}

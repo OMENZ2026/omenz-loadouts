@@ -1,0 +1,22 @@
+{
+  "id": "unitree-go2",
+  "name": "Unitree Go2 quadruped (unitree_sdk2 SportClient)",
+  "bridge": "unitree_sdk2 / unitree_sdk2_python; ros-mcp has a Go2-in-Isaac-Sim demo",
+  "native": {
+    "move.navigate_to": "SportClient.Move(vx, vy, vyaw) + localization",
+    "move.follow": "follow mode (model dependent)",
+    "gesture.wave": "SportClient.Hello()",
+    "sense.camera_snapshot": "front camera",
+    "sense.battery": "LowState",
+    "safety.estop": "SportClient.Damp() / StandDown()",
+    "safety.speed_limit": "SpeedLevel / adapter cap",
+    "speech.say": "speaker (VUI / audio, model dependent)"
+  },
+  "addon": {
+    "move.patrol": "waypoint loop",
+    "sense.detect_objects": "vision model",
+    "sense.detect_people": "vision model",
+    "speech.listen": "mic + ASR"
+  },
+  "verified_on_hardware": false
+}
