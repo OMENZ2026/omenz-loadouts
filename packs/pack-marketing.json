@@ -1,0 +1,9 @@
+{
+  "id": "pack-marketing",
+  "name": "MARKETING DEPARTMENT",
+  "members": [
+    "skin-marketing-operator",
+    "skin-researcher"
+  ],
+  "budget": "POST /v1/budget/create (department cap) then POST /v1/budget/delegate per member: a member can never exceed the department"
+}

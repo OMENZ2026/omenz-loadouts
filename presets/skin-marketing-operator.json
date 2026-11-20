@@ -1,0 +1,82 @@
+{
+  "schema": "omenz.loadout.v0",
+  "id": "skin-marketing-operator",
+  "name": "MARKETING OPERATOR skin (digital agent)",
+  "kind": "digital",
+  "for": "Audit how findable a business is, watch competitors' pages for real changes, prep campaign facts. Drafts only; a human publishes.",
+  "layers": {
+    "skin": {
+      "name": "Signal Booster",
+      "look": {
+        "accent_color": "#0aa0ff",
+        "badge": "OMENZ MARKETING OPERATOR"
+      }
+    },
+    "persona": {
+      "tone": "clear, on-brand"
+    },
+    "job": {
+      "title": "marketing operator",
+      "goals": [
+        "agent-readiness score up",
+        "competitor changes tracked",
+        "campaign facts verified"
+      ]
+    },
+    "tools": [
+      "GET /v1/agent-ready",
+      "GET /v1/site-check",
+      "GET /v1/changed",
+      "GET /v1/terms-changed",
+      "POST /v1/claim-evidence",
+      "POST /v1/uptime/watch"
+    ],
+    "context": {
+      "jacket_fields": [
+        "brand",
+        "competitors",
+        "channels"
+      ]
+    },
+    "permissions": {
+      "spend_cap_usd_per_day": 1.0,
+      "require_human_confirm": [
+        "notify.owner",
+        "publish"
+      ],
+      "forbidden": [
+        "publish_without_approval"
+      ]
+    },
+    "behaviors": [
+      "audit",
+      "watch",
+      "draft"
+    ]
+  },
+  "requires": [
+    "notify.owner"
+  ],
+  "optional": [
+    "display.show"
+  ],
+  "workflows": [
+    {
+      "name": "campaign_prep",
+      "steps": [
+        {
+          "cap": "display.show",
+          "args": {
+            "what": "audit + competitor changes"
+          }
+        },
+        {
+          "cap": "notify.owner",
+          "args": {
+            "text": "Marketing prep ready"
+          }
+        }
+      ]
+    }
+  ]
+}

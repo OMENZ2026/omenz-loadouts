@@ -1,0 +1,12 @@
+{
+  "id": "pack-small-business",
+  "name": "SMALL BUSINESS PACK",
+  "members": [
+    "skin-accountant",
+    "skin-sales-operator",
+    "skin-marketing-operator",
+    "skin-customer-service",
+    "skin-purchasing"
+  ],
+  "budget": "POST /v1/budget/create (department cap) then POST /v1/budget/delegate per member: a member can never exceed the department"
+}

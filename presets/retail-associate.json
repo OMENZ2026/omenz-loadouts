@@ -1,0 +1,95 @@
+{
+  "schema": "omenz.loadout.v0",
+  "id": "retail-associate",
+  "name": "RETAIL ASSOCIATE (floor helper)",
+  "kind": "both",
+  "for": "Help shoppers find items, answer store hours from the store's own site, call a human for price checks, returns and payments. Never takes payment.",
+  "layers": {
+    "skin": {
+      "name": "Floor Help"
+    },
+    "persona": {
+      "tone": "helpful"
+    },
+    "job": {
+      "title": "retail associate",
+      "goals": [
+        "item found",
+        "question answered",
+        "human called when needed"
+      ]
+    },
+    "tools": [
+      "local-facts (OMENZ: the store's own hours/address)"
+    ],
+    "context": {
+      "jacket_fields": [
+        "store_map",
+        "store_url",
+        "staff_contact"
+      ]
+    },
+    "permissions": {
+      "max_speed_mps": 0.6,
+      "max_payload_kg": 1.0,
+      "no_go_zones": [
+        "stairs",
+        "pool edge",
+        "grill"
+      ],
+      "require_human_confirm": [
+        "sense.camera_snapshot"
+      ],
+      "forbidden": [
+        "sense.recognize_person",
+        "take_payment",
+        "process_returns"
+      ],
+      "contact_with_people": "handover only, never touch"
+    },
+    "behaviors": [
+      "find_item",
+      "answer",
+      "call_staff"
+    ]
+  },
+  "requires": [
+    "speech.say",
+    "speech.listen",
+    "notify.owner"
+  ],
+  "optional": [
+    "move.navigate_to",
+    "gesture.point",
+    "display.show"
+  ],
+  "workflows": [
+    {
+      "name": "find_item",
+      "steps": [
+        {
+          "cap": "speech.listen",
+          "args": {}
+        },
+        {
+          "cap": "move.navigate_to",
+          "args": {
+            "place": "aisle 7"
+          }
+        },
+        {
+          "cap": "gesture.point",
+          "args": {
+            "place": "shelf"
+          }
+        },
+        {
+          "cap": "speech.say",
+          "args": {
+            "text": "Batteries are right here."
+          }
+        }
+      ]
+    }
+  ]
+}

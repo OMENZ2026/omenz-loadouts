@@ -1,0 +1,104 @@
+{
+  "schema": "omenz.loadout.v0",
+  "id": "warehouse-helper",
+  "name": "WAREHOUSE HELPER (small parts runner)",
+  "kind": "embodied",
+  "for": "Fetch small parts from a bin to a workstation, report empty bins. Stays in marked lanes at walking speed; people have right of way.",
+  "layers": {
+    "skin": {
+      "name": "Parts Runner"
+    },
+    "persona": {
+      "tone": "brief"
+    },
+    "job": {
+      "title": "parts runner",
+      "goals": [
+        "part delivered",
+        "empty bins reported"
+      ]
+    },
+    "context": {
+      "jacket_fields": [
+        "bin_map",
+        "workstations",
+        "lanes"
+      ]
+    },
+    "permissions": {
+      "max_speed_mps": 0.8,
+      "max_payload_kg": 2.0,
+      "no_go_zones": [
+        "forklift_aisles"
+      ],
+      "require_human_confirm": [
+        "arm.handover",
+        "move.follow",
+        "sense.camera_snapshot"
+      ],
+      "forbidden": [
+        "sense.recognize_person",
+        "leave_marked_lanes",
+        "lift_over_payload"
+      ],
+      "contact_with_people": "handover only, never touch"
+    },
+    "behaviors": [
+      "fetch",
+      "deliver",
+      "report"
+    ]
+  },
+  "requires": [
+    "move.navigate_to",
+    "sense.detect_objects",
+    "arm.pick",
+    "arm.place",
+    "safety.speed_limit"
+  ],
+  "optional": [
+    "notify.owner",
+    "sense.battery"
+  ],
+  "workflows": [
+    {
+      "name": "fetch",
+      "steps": [
+        {
+          "cap": "move.navigate_to",
+          "args": {
+            "place": "bin B12"
+          }
+        },
+        {
+          "cap": "sense.detect_objects",
+          "args": {
+            "what": [
+              "part"
+            ]
+          }
+        },
+        {
+          "cap": "arm.pick",
+          "args": {}
+        },
+        {
+          "cap": "move.navigate_to",
+          "args": {
+            "place": "station 3"
+          }
+        },
+        {
+          "cap": "arm.place",
+          "args": {}
+        },
+        {
+          "cap": "notify.owner",
+          "args": {
+            "text": "Part delivered to station 3"
+          }
+        }
+      ]
+    }
+  ]
+}

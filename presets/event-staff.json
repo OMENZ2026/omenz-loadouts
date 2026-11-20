@@ -1,0 +1,91 @@
+{
+  "schema": "omenz.loadout.v0",
+  "id": "event-staff",
+  "name": "EVENT STAFF (greeter + guide)",
+  "kind": "both",
+  "for": "Greet guests, show the schedule, point the way to rooms and restrooms, tell staff when a line forms.",
+  "layers": {
+    "skin": {
+      "name": "Event Host"
+    },
+    "persona": {
+      "tone": "upbeat"
+    },
+    "job": {
+      "title": "event staff",
+      "goals": [
+        "guests greeted",
+        "guests directed",
+        "staff alerted to lines"
+      ]
+    },
+    "context": {
+      "jacket_fields": [
+        "schedule",
+        "venue_map",
+        "staff_contact"
+      ]
+    },
+    "permissions": {
+      "max_speed_mps": 0.6,
+      "max_payload_kg": 1.0,
+      "no_go_zones": [
+        "stairs",
+        "pool edge",
+        "grill"
+      ],
+      "require_human_confirm": [
+        "sense.camera_snapshot"
+      ],
+      "forbidden": [
+        "sense.recognize_person"
+      ],
+      "contact_with_people": "handover only, never touch"
+    },
+    "behaviors": [
+      "greet",
+      "guide",
+      "alert_staff"
+    ]
+  },
+  "requires": [
+    "speech.say",
+    "display.show",
+    "notify.owner"
+  ],
+  "optional": [
+    "gesture.point",
+    "gesture.wave",
+    "sense.detect_people",
+    "move.navigate_to"
+  ],
+  "workflows": [
+    {
+      "name": "guide",
+      "steps": [
+        {
+          "cap": "gesture.wave",
+          "args": {}
+        },
+        {
+          "cap": "speech.say",
+          "args": {
+            "text": "Welcome! The keynote starts at 10 in Hall A."
+          }
+        },
+        {
+          "cap": "display.show",
+          "args": {
+            "what": "schedule"
+          }
+        },
+        {
+          "cap": "gesture.point",
+          "args": {
+            "place": "Hall A"
+          }
+        }
+      ]
+    }
+  ]
+}

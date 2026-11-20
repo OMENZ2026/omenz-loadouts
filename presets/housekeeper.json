@@ -1,0 +1,108 @@
+{
+  "schema": "omenz.loadout.v0",
+  "id": "housekeeper",
+  "name": "HOUSEKEEPER (tidy-up)",
+  "kind": "embodied",
+  "for": "Tidy a room: find cups, plates and trash, carry them to the kitchen or bin, report what's left. No cleaning chemicals, no stairs.",
+  "layers": {
+    "skin": {
+      "name": "Tidy Mode"
+    },
+    "persona": {
+      "tone": "quiet"
+    },
+    "job": {
+      "title": "housekeeper",
+      "goals": [
+        "room tidied",
+        "nothing broken",
+        "owner told what's left"
+      ]
+    },
+    "context": {
+      "jacket_fields": [
+        "rooms",
+        "drop_points",
+        "do_not_touch"
+      ]
+    },
+    "permissions": {
+      "max_speed_mps": 0.6,
+      "max_payload_kg": 1.0,
+      "no_go_zones": [
+        "stairs",
+        "pool edge",
+        "grill"
+      ],
+      "require_human_confirm": [
+        "arm.pick fragile"
+      ],
+      "forbidden": [
+        "sense.recognize_person",
+        "stairs",
+        "chemicals",
+        "open_containers_near_electronics"
+      ],
+      "contact_with_people": "handover only, never touch"
+    },
+    "behaviors": [
+      "scan",
+      "collect",
+      "report"
+    ]
+  },
+  "requires": [
+    "move.navigate_to",
+    "sense.detect_objects",
+    "arm.pick",
+    "arm.place",
+    "notify.owner"
+  ],
+  "optional": [
+    "arm.carry_tray",
+    "sense.battery"
+  ],
+  "workflows": [
+    {
+      "name": "tidy",
+      "steps": [
+        {
+          "cap": "move.navigate_to",
+          "args": {
+            "place": "living room"
+          }
+        },
+        {
+          "cap": "sense.detect_objects",
+          "args": {
+            "what": [
+              "cup",
+              "plate",
+              "trash"
+            ]
+          }
+        },
+        {
+          "cap": "arm.pick",
+          "args": {}
+        },
+        {
+          "cap": "move.navigate_to",
+          "args": {
+            "place": "kitchen"
+          }
+        },
+        {
+          "cap": "arm.place",
+          "args": {}
+        },
+        {
+          "cap": "notify.owner",
+          "args": {
+            "text": "Living room tidied; 2 items left"
+          }
+        }
+      ]
+    }
+  ]
+}

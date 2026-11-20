@@ -1,0 +1,82 @@
+{
+  "schema": "omenz.loadout.v0",
+  "id": "skin-sales-operator",
+  "name": "SALES OPERATOR skin (digital agent)",
+  "kind": "digital",
+  "for": "Prospect local businesses: check their sites, pull contact facts, qualify, prepare one-touch outreach for a human to send.",
+  "layers": {
+    "skin": {
+      "name": "Pipeline Builder",
+      "look": {
+        "accent_color": "#0aa0ff",
+        "badge": "OMENZ SALES OPERATOR"
+      }
+    },
+    "persona": {
+      "tone": "friendly, brief"
+    },
+    "job": {
+      "title": "sales operator",
+      "goals": [
+        "qualified prospect list",
+        "contact facts with sources",
+        "outreach drafts for human approval"
+      ]
+    },
+    "tools": [
+      "GET /v1/site-check",
+      "GET /v1/local-facts",
+      "GET /v1/agent-ready",
+      "GET /v1/branch",
+      "POST /v1/dedupe",
+      "POST /v1/pobox/drop"
+    ],
+    "context": {
+      "jacket_fields": [
+        "territory",
+        "offer",
+        "ideal_customer"
+      ]
+    },
+    "permissions": {
+      "spend_cap_usd_per_day": 1.0,
+      "require_human_confirm": [
+        "notify.owner",
+        "send_outreach"
+      ],
+      "forbidden": [
+        "send_without_approval"
+      ]
+    },
+    "behaviors": [
+      "prospect",
+      "qualify",
+      "draft"
+    ]
+  },
+  "requires": [
+    "notify.owner"
+  ],
+  "optional": [
+    "display.show"
+  ],
+  "workflows": [
+    {
+      "name": "pipeline",
+      "steps": [
+        {
+          "cap": "display.show",
+          "args": {
+            "what": "qualified prospects + drafts"
+          }
+        },
+        {
+          "cap": "notify.owner",
+          "args": {
+            "text": "Prospects ready for your review"
+          }
+        }
+      ]
+    }
+  ]
+}
